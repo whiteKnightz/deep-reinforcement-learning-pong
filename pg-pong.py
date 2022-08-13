@@ -1,16 +1,24 @@
 """ Trains an agent with (stochastic) Policy Gradients on Pong. Uses OpenAI Gym. """
+import datetime
+
 import numpy as np
 import pickle
 import gym
+import os, psutil
 
 # hyperparameters
-H = 200 # number of hidden layer neurons
+H = 600 # number of hidden layer neurons
 batch_size = 10 # every how many episodes to do a param update?
 learning_rate = 1e-4
 gamma = 0.99 # discount factor for reward
 decay_rate = 0.99 # decay factor for RMSProp leaky sum of grad^2
 resume = False # resume from previous checkpoint?
 render = False
+number_of_wins = 0
+number_of_loss = 0
+startDateTime = datetime.datetime.now()
+running = True
+process = psutil.Process(os.getpid())
 
 # model initialization
 D = 80 * 80 # input dimensionality: 80x80 grid
@@ -68,7 +76,7 @@ xs,hs,dlogps,drs = [],[],[],[]
 running_reward = None
 reward_sum = 0
 episode_number = 0
-while True:
+while running:
   if render: env.render()
 
   # preprocess the observation, set input to network to be difference image
@@ -91,10 +99,10 @@ while True:
   reward_sum += reward
 
   drs.append(reward) # record reward (has to be done after we call step() to get reward for previous action)
-  
-  if reward != 0: # Pong has either +1 or -1 reward exactly when game ends.
-    print(('ep %d: game finished, reward: %f' % (episode_number, reward)) + ('' if reward == -1 else ' !!!!!!!!'))
-    
+
+  # if reward != 0: # Pong has either +1 or -1 reward exactly when game ends.
+    # print(('ep %d: game finished, reward: %f' % (episode_number, reward)) + ('' if reward == -1 else ' !!!!!!!!'))
+
   if done: # an episode finished
     episode_number += 1
 
@@ -125,8 +133,16 @@ while True:
 
     # boring book-keeping
     running_reward = reward_sum if running_reward is None else running_reward * 0.99 + reward_sum * 0.01
-    print('resetting env. episode reward total was %f. running mean: %f' % (reward_sum, running_reward) )
+    # print('resetting env. episode reward total was %f. running mean: %f' % (reward_sum, running_reward) )
     if episode_number % 100 == 0: pickle.dump(model, open('save.p', 'wb'))
+    if running_reward > -20.5:
+      running = False
+      dateTimeNow = datetime.datetime.now()
+      print("running mean: %f" % (running_reward))
+      print("Start time:", startDateTime)
+      print("End time:", dateTimeNow)
+      print("Duration:", dateTimeNow - startDateTime)
+      print("Memory Used(in MB)", process.memory_info().rss / 1024 ** 2)
     reward_sum = 0
     observation = env.reset() # reset env
     prev_x = None
