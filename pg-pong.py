@@ -105,7 +105,7 @@ def run_algo(H, learning_rate, writer_obj, type_of_variable):
             running_reward = reward_sum if running_reward is None else running_reward * 0.99 + reward_sum * 0.01
             print('resetting env. episode reward total was %f. running mean: %f' % (reward_sum, running_reward) )
             if episode_number % 100 == 0: pickle.dump(model, open('save.p', 'wb'))
-            if running_reward > -20:
+            if running_reward > -11:
                 running = False
                 date_time_now = datetime.datetime.now()
                 print("Ran algorithm with: \t\t neurons: %d \t\t& \t\t learning rate: %f" % (H, learning_rate))
