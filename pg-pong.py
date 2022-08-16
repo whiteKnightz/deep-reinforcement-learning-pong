@@ -70,8 +70,8 @@ def run_algo(H, learning_rate, writer_obj, type_of_variable):
 
         drs.append(reward)  # record reward (has to be done after we call step() to get reward for previous action)
 
-        if reward != 0: # Pong has either +1 or -1 reward exactly when game ends.
-            print(('ep %d: game finished, reward: %f' % (episode_number, reward)) + ('' if reward == -1 else ' !!!!!!!!'))
+        # if reward != 0: # Pong has either +1 or -1 reward exactly when game ends.
+        #     print(('ep %d: game finished, reward: %f' % (episode_number, reward)) + ('' if reward == -1 else ' !!!!!!!!'))
 
         if done:  # an episode finished
             episode_number += 1
@@ -118,11 +118,11 @@ def run_algo(H, learning_rate, writer_obj, type_of_variable):
             prev_x = None
 
 
-f = open('collected_data/data.csv', 'w')
+f = open('collected_data/data.csv', 'a')
 writer = csv.writer(f)
-header = ['Variable Type', 'Number of Neurons', 'Learning Rate', 'Start Date Time', 'Stop Date Time',
-          'Start Time (seconds)', 'Stop Time (seconds)', 'Time Taken (Stop-Start) in Seconds', 'RAM Used(in MB)']
-writer.writerow(header)
+# header = ['Variable Type', 'Number of Neurons', 'Learning Rate', 'Start Date Time', 'Stop Date Time',
+#           'Start Time (seconds)', 'Stop Time (seconds)', 'Time Taken (Stop-Start) in Seconds', 'RAM Used(in MB)']
+# writer.writerow(header)
 
 h_list = [200, 400, 600, 800, 1000, 1200, 1400]  # number of hidden layer neurons
 learning_rate_list = [1e-4, 1e-5, 1e-6, 1e-7, 1e-8, 1e-9, 1e-10]
