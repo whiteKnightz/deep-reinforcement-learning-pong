@@ -1,6 +1,7 @@
-#Deep Reinforcement Learning: Pong Game
+# Deep Reinforcement Learning: Pong Game
 
-##Code changes##:
+## Code changes:
+
 * Optimized:
     * Broke the code into class and function. This enables the values for Learning Rates, Number of Neurons,
       and Stopping Values to be passed as variable to the function.
