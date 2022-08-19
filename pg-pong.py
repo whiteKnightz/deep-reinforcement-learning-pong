@@ -10,7 +10,7 @@ import os, psutil
 from helper import Helper
 
 
-def run_algo(H, learning_rate, writer_obj, type_of_variable):
+def run_algo(H, learning_rate, writer_obj, type_of_variable, break_number):
     batch_size = 10  # every how many episodes to do a param update?
     gamma = 0.99  # discount factor for reward
     decay_rate = 0.99  # decay factor for RMSProp leaky sum of grad^2
@@ -105,7 +105,7 @@ def run_algo(H, learning_rate, writer_obj, type_of_variable):
             running_reward = reward_sum if running_reward is None else running_reward * 0.99 + reward_sum * 0.01
             print('resetting env. episode reward total was %f. running mean: %f' % (reward_sum, running_reward) )
             if episode_number % 100 == 0: pickle.dump(model, open('save.p', 'wb'))
-            if running_reward > -11:
+            if running_reward > break_number:
                 running = False
                 date_time_now = datetime.datetime.now()
                 print("Ran algorithm with: \t\t neurons: %d \t\t& \t\t learning rate: %f" % (H, learning_rate))
@@ -120,16 +120,16 @@ def run_algo(H, learning_rate, writer_obj, type_of_variable):
 
 f = open('collected_data/data.csv', 'a')
 writer = csv.writer(f)
-# header = ['Variable Type', 'Number of Neurons', 'Learning Rate', 'Start Date Time', 'Stop Date Time',
-#           'Start Time (seconds)', 'Stop Time (seconds)', 'Time Taken (Stop-Start) in Seconds', 'RAM Used(in MB)']
-# writer.writerow(header)
+header = ['variable_type', 'number_of_neurons', 'learning_rate', 'start_date_time', 'stop_date_time',
+          'start_time_in_seconds', 'stop_time_in_seconds', 'time_taken_in_seconds', 'ram_used_in_mb']
+writer.writerow(header)
 
-h_list = [200, 400, 600, 800, 1000, 1200, 1400]  # number of hidden layer neurons
-learning_rate_list = [1e-4, 1e-5, 1e-6, 1e-7, 1e-8, 1e-9, 1e-10]
+h_list = [200, 400, 600, 800, 1000]  # number of hidden layer neurons
+learning_rate_list = [1e-2, 1e-3, 1e-4, 1e-5]
 
 for h in h_list:
-    run_algo(h, learning_rate_list[0], writer, "NEURONS")
+    run_algo(h, 1e-4, writer, "NEURONS", -11)
 
 for rate_of_learning in learning_rate_list:
-    run_algo(200, rate_of_learning, writer, 'LEARNING')
+    run_algo(200, rate_of_learning, writer, 'LEARNING', -15)
 f.close()
