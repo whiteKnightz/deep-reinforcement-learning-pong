@@ -125,10 +125,10 @@ header = ['variable_type', 'number_of_neurons', 'learning_rate', 'start_date_tim
 writer.writerow(header)
 
 h_list = [200, 400, 600, 800, 1000]  # number of hidden layer neurons
-learning_rate_list = [1e-1, 1e-2, 1e-3, 1e-4, 1e-5]
+learning_rate_list = [1e-2, 1e-3, 1e-4, 1e-5]
 
-for h in h_list:
-    run_algo(h, 1e-4, writer, "NEURONS", -11)
+# for h in h_list:
+#     run_algo(h, 1e-4, writer, "NEURONS", -11)
 
 for rate_of_learning in learning_rate_list:
     run_algo(200, rate_of_learning, writer, 'LEARNING', -15)
