@@ -1,4 +1,4 @@
-Variable Type,Number of Neurons,Learning Rate,Start Date Time,Stop Date Time,Start Time (seconds),Stop Time (seconds),Time Taken (Stop-Start) in Seconds,RAM Used(in MB)
+variable_type,number_of_neurons,learning_rate,start_date_time,stop_date_time,start_time_in_seconds,stop_time_in_seconds,time_taken_in_seconds,ram_used_in_mb
 NEURONS,200,0.0001,2022-08-13 23:24:34.256035,2022-08-14 05:05:06.640370,1660447474.256035,1660467906.64037,20432.384335,1011.05859375
 NEURONS,400,0.0001,2022-08-14 05:05:06.647103,2022-08-14 11:15:20.377023,1660467906.647103,1660490120.377023,22213.72992,1088.77734375
 NEURONS,600,0.0001,2022-08-14 11:15:20.386317,2022-08-14 20:12:36.980730,1660490120.386317,1660522356.98073,32236.594413,1033.88671875

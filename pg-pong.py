@@ -120,8 +120,8 @@ def run_algo(H, learning_rate, writer_obj, type_of_variable, break_number):
 
 f = open('collected_data/data.csv', 'a')
 writer = csv.writer(f)
-header = ['Variable Type', 'Number of Neurons', 'Learning Rate', 'Start Date Time', 'Stop Date Time',
-          'Start Time (seconds)', 'Stop Time (seconds)', 'Time Taken (Stop-Start) in Seconds', 'RAM Used(in MB)']
+header = ['variable_type', 'number_of_neurons', 'learning_rate', 'start_date_time', 'stop_date_time',
+          'start_time_in_seconds', 'stop_time_in_seconds', 'time_taken_in_seconds', 'ram_used_in_mb']
 writer.writerow(header)
 
 h_list = [200, 400, 600, 800, 1000]  # number of hidden layer neurons
