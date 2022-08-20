@@ -1,5 +1,10 @@
 # Deep Reinforcement Learning: Pong Game
 
+## Run the code:
+* run pg-pong.py file
+
+
+
 ## Code changes:
 
 * Optimized:
